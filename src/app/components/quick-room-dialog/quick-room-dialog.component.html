@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Join Quick Chat Room</h1>
+<div mat-dialog-content>
+  <form #f="ngForm" [formGroup]="form">
+      <input matInput type="text" placeholder="room name" formControlName="room">
+  <input matInput type="text" placeholder="your nickname" formControlName="nickname">
+  <button type="button" (click)="createQuickRoom()">Create</button>
+  <button type="button" (click)="joinQuickRoom()">Join</button>
+  </form>
+
+</div>
