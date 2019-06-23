@@ -30,7 +30,11 @@ export class QuickRoomDialogComponent implements OnInit {
   }
 
   createQuickRoom() {
-    this.dialogRef.close({room: this.form.value.room, user: this.form.value.nickname});
+    this.dialogRef.close({action: 'create', room: this.form.value.room, user: this.form.value.nickname});
+  }
+
+  joinQuickRoom() {
+    this.dialogRef.close({action: 'join', room: this.form.value.room, user: this.form.value.nickname})
   }
 
 }

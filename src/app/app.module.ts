@@ -14,7 +14,7 @@ import { QuickRoomComponent } from './components/quick-room-component/quick-room
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ChatService } from './services/commons/chat.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { QuickRoomDataStorage } from './components/quick-room-dialog/quickRoomDataStorage';
+import { QuickRoomDataStorage } from './services/quickRoomDataStorage';
 
 @NgModule({
   declarations: [

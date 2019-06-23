@@ -19,8 +19,12 @@ export class ChatService {
         this.socket = io(this.url, connectionOptions);
     }
 
-    public send(message): void {
-        this.socket.emit('new-message', message);
+    public send(room, message): void {
+        this.socket.emit('new-message', {room, message});
+    }
+
+    public join(user, room) {
+        this.socket.emit('join', {user, room})
     }
 
     public onMessage(): Observable<any> {
@@ -29,19 +33,22 @@ export class ChatService {
         });
     }
 
-    public onEvent(event: any): Observable<any> {
+    public onJoin() {
+        return new Observable<any>(observer => {
+            this.socket.on('new-member', (data: any) => observer.next(data));
+        })
+    }
+
+    public onDisconnect() {
+        return new Observable<any>(observer => {
+            this.socket.on('member-disconnected', (data: any) => observer.next(data))
+        })
+    }
+        public onEvent(event: any): Observable<any> {
         return new Observable<any>(observer => {
             this.socket.on(event, () => observer.next());
         });
     }
 
-    public join(user, room) {
-        this.socket.emit('join', {user, room})
-    }
 
-    public onJoin(): Observable<any> {
-        return new Observable<any>(observer => {
-            this.socket.on('new-member', (data: any) => observer.next(data));
-        })
-    }
 } 

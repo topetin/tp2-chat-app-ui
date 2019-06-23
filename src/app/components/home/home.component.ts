@@ -5,7 +5,7 @@ import { QuickRoomService } from 'src/app/services/quick-room.service';
 import { ChatService } from 'src/app/services/commons/chat.service';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { QuickRoomDataStorage } from '../quick-room-dialog/quickRoomDataStorage';
+import { QuickRoomDataStorage } from '../../services/quickRoomDataStorage';
 import { PublicRoom } from 'src/app/models/PublicRoom';
 
 @Component({
@@ -32,14 +32,28 @@ export class HomeComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(data => {
-      this.quickroomservice.createQuickRoom(data.room, data.user).subscribe(
-        response => {
-        this.quickRoomDataStorage.quickRoomData = {room: response.room, users: response.users, latestUser: data.user, token: response.token}
-        this.router.navigate(['/quickRoom']);
-      },
-      error => {
-        this._snackBar.open(error, 'OK', {duration: 2000})
-      })
+      if (data.action === 'create') {
+        return this.quickroomservice.createQuickRoom(data.room, data.user).subscribe(
+          response => {
+          this.quickRoomDataStorage.quickRoomData = {'Server': response, 'LatestUser': data.user};
+          this.router.navigate(['/quickRoom']);
+        },
+        error => {
+          this._snackBar.open(error, 'OK', {duration: 2000})
+        })
+      }
+      if (data.action === 'join') {
+        return this.quickroomservice.joinQuickRoom(data.room, data.user).subscribe(
+          response => {
+            this.quickRoomDataStorage.quickRoomData = {'Server': response, 'LatestUser': data.user};
+            this.router.navigate(['/quickRoom']);
+          },
+          error => {
+            console.log(error);
+            this._snackBar.open(error, 'OK', {duration: 2000})
+          })
+      }
+
     });
   }
 
