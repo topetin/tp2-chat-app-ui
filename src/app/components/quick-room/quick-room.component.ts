@@ -53,6 +53,11 @@ export class QuickRoomComponent implements OnInit {
       this.users.splice(this.users.indexOf(data), 1)
     })
 
+    this.chatService.onPreviousMessages().subscribe((messages: any) => {
+      console.log(messages.messages)
+      this.messages = messages.messages
+    })
+
   }
 
   public sendMessage(message: string): void {
@@ -63,25 +68,9 @@ export class QuickRoomComponent implements OnInit {
     this.message = null;
   }
 
-  // public sendNotification(params: any, action: any): void {
-  //   let message: string;
+  public shareRoom () {
+    
+  }
 
-  //   if (action === Action.JOINED) {
-  //     message = {
-  //       from: this.user,
-  //       action: action
-  //     }
-  //   } else if (action === Action.RENAME) {
-  //     message = {
-  //       action: action,
-  //       content: {
-  //         username: this.user.name,
-  //         previousUsername: params.previousUsername
-  //       }
-  //     };
-  //   }
-
-  //   this.socketService.send(message);
-  // }
 
 }

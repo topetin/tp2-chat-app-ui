@@ -10,18 +10,20 @@ import { QuickRoomDialogComponent } from './components/quick-room-dialog/quick-r
 
 import {MatDialogModule} from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { QuickRoomComponent } from './components/quick-room-component/quick-room.component';
+import { QuickRoomComponent } from './components/quick-room/quick-room.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ChatService } from './services/commons/chat.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuickRoomDataStorage } from './services/quickRoomDataStorage';
+import { QuickRoomShareComponent } from './components/quick-room-share/quick-room-share.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     QuickRoomDialogComponent,
-    QuickRoomComponent
+    QuickRoomComponent,
+    QuickRoomShareComponent
   ],
   imports: [
     BrowserModule,

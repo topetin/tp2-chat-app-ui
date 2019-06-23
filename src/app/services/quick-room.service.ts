@@ -18,11 +18,11 @@ export class QuickRoomService {
   ) { }
 
   createQuickRoom(room: string, nickname: string) {
-    return this.http.post(this.apiUrl + '/quickRoom', {'room': room, 'user': nickname}, {headers: headers}).pipe(this.extractData, catchError(this.handleError))
+    return this.http.post(this.apiUrl + '/createQuickRoom', {'room': room, 'user': nickname}, {headers: headers}).pipe(this.extractData, catchError(this.handleError))
   }
 
   joinQuickRoom(room: string, nickname: string) {
-    return this.http.post(this.apiUrl + '/chatRoom', {'room': room, 'user': nickname}, {headers: headers}).pipe(this.extractData, catchError(this.handleError))
+    return this.http.post(this.apiUrl + '/joinQuickRoom', {'room': room, 'user': nickname}, {headers: headers}).pipe(this.extractData, catchError(this.handleError))
   }
 
   private extractData(res: any) {
