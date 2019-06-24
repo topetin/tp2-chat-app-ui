@@ -1,4 +1,4 @@
-<button type="button">SHARE ROOM</button>
+<button type="button" (click)="shareRoom()">SHARE ROOM</button>
 <input matInput 
                #inputMessage 
                maxlength="140" 
@@ -6,5 +6,5 @@
                [(ngModel)]="message" 
                (keyup.enter)="sendMessage(message)">
 <p *ngFor="let message of messages">
-    {{message}}
+    {{message.date}} - {{message.user}}: {{message.content}}
 </p>

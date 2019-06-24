@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import {throwError as observableThrowError, Observable} from 'rxjs';
 import { catchError } from 'rxjs/operators'
-import { PublicRoom } from '../models/PublicRoom';
 
 const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'})
 
@@ -23,6 +22,11 @@ export class QuickRoomService {
 
   joinQuickRoom(room: string, nickname: string) {
     return this.http.post(this.apiUrl + '/joinQuickRoom', {'room': room, 'user': nickname}, {headers: headers}).pipe(this.extractData, catchError(this.handleError))
+  }
+
+  getRoomByToken(token: string) {
+    let params = new HttpParams().set('token', token);
+    return this.http.get(this.apiUrl + '/getRoomByToken', {headers, params}).pipe(this.extractData, catchError(this.handleError))
   }
 
   private extractData(res: any) {

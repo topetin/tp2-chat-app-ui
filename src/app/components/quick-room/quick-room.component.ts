@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/commons/chat.service';
 import { QuickRoomDataStorage } from '../../services/quickRoomDataStorage';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { QuickRoomShareComponent } from '../quick-room-share/quick-room-share.component';
+import { Message } from 'src/app/models/Message';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-quick-room',
@@ -23,7 +27,8 @@ export class QuickRoomComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private quickRoomDataStorage: QuickRoomDataStorage,
-    private router: Router) { }
+    private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     if(!this.quickRoomDataStorage.quickRoomData) {
@@ -64,12 +69,18 @@ export class QuickRoomComponent implements OnInit {
     if (!message) {
       return;
     }
-    this.chatService.send(this.room, message);
+    let date = moment().calendar(); 
+    let messageObject = new Message(message, this.latestUser, date)
+    this.chatService.send(this.room, messageObject);
     this.message = null;
   }
 
   public shareRoom () {
-    
+    const dialogRef = this.dialog.open(QuickRoomShareComponent, {
+      data: {
+      url: `localhost:4200/quickRoom/${this.quickRoomDataStorage.quickRoomData.Server.token}`
+      }
+    })
   }
 
 

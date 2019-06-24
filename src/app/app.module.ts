@@ -16,6 +16,7 @@ import { ChatService } from './services/commons/chat.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuickRoomDataStorage } from './services/quickRoomDataStorage';
 import { QuickRoomShareComponent } from './components/quick-room-share/quick-room-share.component';
+import { QuickRoomEnterComponent, QuickRoomEnterDialog } from './components/quick-room-enter/quick-room-enter.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { QuickRoomShareComponent } from './components/quick-room-share/quick-roo
     HomeComponent,
     QuickRoomDialogComponent,
     QuickRoomComponent,
-    QuickRoomShareComponent
+    QuickRoomShareComponent,
+    QuickRoomEnterComponent,
+    QuickRoomEnterDialog
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { QuickRoomShareComponent } from './components/quick-room-share/quick-roo
     RouterModule.forRoot([
       {path: '',  redirectTo: '/home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
-      {path: 'quickRoom', component: QuickRoomComponent}
+      {path: 'quickRoom', component: QuickRoomComponent},
+      {path: 'quickRoom/:token', component: QuickRoomEnterComponent, pathMatch: 'full'}
     ]),
     MatDialogModule,
     BrowserAnimationsModule,
@@ -41,8 +45,6 @@ import { QuickRoomShareComponent } from './components/quick-room-share/quick-roo
   ],
   providers: [ChatService, QuickRoomDataStorage],
   bootstrap: [AppComponent],
-  entryComponents: [QuickRoomDialogComponent]
+  entryComponents: [QuickRoomDialogComponent, QuickRoomShareComponent, QuickRoomEnterDialog]
 })
 export class AppModule { }
-
-platformBrowserDynamic().bootstrapModule(AppModule);

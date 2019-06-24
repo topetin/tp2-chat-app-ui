@@ -6,7 +6,6 @@ import { ChatService } from 'src/app/services/commons/chat.service';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { QuickRoomDataStorage } from '../../services/quickRoomDataStorage';
-import { PublicRoom } from 'src/app/models/PublicRoom';
 
 @Component({
   selector: 'app-home',
