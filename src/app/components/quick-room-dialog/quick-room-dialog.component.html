@@ -1,10 +1,33 @@
-<h1 mat-dialog-title>Join Quick Chat Room</h1>
+<h1 mat-dialog-title style="color: #ffff">Quick chat room!</h1>
 <div mat-dialog-content>
   <form #f="ngForm" [formGroup]="form">
-      <input matInput type="text" placeholder="room name" formControlName="room">
-  <input matInput type="text" placeholder="your nickname" formControlName="nickname">
-  <button type="button" (click)="createQuickRoom()">Create</button>
-  <button type="button" (click)="joinQuickRoom()">Join</button>
-  </form>
+  <div class="col">
+          <mat-form-field>
+              <input matInput type="text" placeholder="sala" formControlName="room">
+            </mat-form-field>
+      </div>
+      <div class="col">
+          <mat-form-field>
+              <input matInput type="text" placeholder="nickname" formControlName="nickname">
+            </mat-form-field>
+      </div>
 
+  </form>
 </div>
+<div class="row" style="padding-top: 10%;">
+  <div class="col text-right">
+      <button 
+      mat-stroked-button 
+      style="width: 88px;border-color: #005d57;" 
+      (click)="createQuickRoom()"
+      [disabled]="!form.value.room || !form.value.nickname">CREATE</button>
+  </div>
+  <div class="col text-left">
+      <button 
+      mat-raised-button 
+      style="width: 88px; background-color: #04b97f;" 
+      (click)="joinQuickRoom()"
+      [disabled]="!form.value.room || !form.value.nickname">JOIN</button>
+    </div>
+</div>
+

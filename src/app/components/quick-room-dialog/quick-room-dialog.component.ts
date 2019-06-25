@@ -9,7 +9,7 @@ export interface DialogData {
 @Component({
   selector: 'app-quick-room-dialog',
   templateUrl: './quick-room-dialog.component.html',
-  styleUrls: ['./quick-room-dialog.component.css']
+  styleUrls: ['./quick-room-dialog.component.scss']
 })
 export class QuickRoomDialogComponent implements OnInit {
 

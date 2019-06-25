@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 const connectionOptions =  {
@@ -23,8 +23,12 @@ export class ChatService {
         this.socket.emit('new-message', {room, message});
     }
 
-    public join(user, room) {
-        this.socket.emit('join', {user, room});
+    public join(room, user) {
+        this.socket.emit('join', {room, user});
+    }
+
+    public notifyTyping(room, user) {
+        this.socket.emit('typing', {room, user})
     }
 
     public onMessage(): Observable<any> {
@@ -54,6 +58,12 @@ export class ChatService {
     public onPreviousMessages() {
         return new Observable<any>(observer => {
             this.socket.on('previous-messages', (data: any) => observer.next(data));
+        })
+    }
+
+    public onTyping() {
+        return new Observable<any>(observer => {
+            this.socket.on('typing', (data: any) => observer.next(data));
         })
     }
 

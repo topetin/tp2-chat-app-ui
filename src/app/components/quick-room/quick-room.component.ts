@@ -10,7 +10,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-quick-room',
   templateUrl: './quick-room.component.html',
-  styleUrls: ['./quick-room.component.css']
+  styleUrls: ['./quick-room.component.scss']
 })
 export class QuickRoomComponent implements OnInit {
 
@@ -42,7 +42,7 @@ export class QuickRoomComponent implements OnInit {
   private initIoConnection(): void {
     this.chatService.initSocket();
 
-    this.chatService.join(this.latestUser, this.room);
+    this.chatService.join(this.room, this.latestUser);
     
     this.ioConnection = this.chatService.onMessage().subscribe((message: any) => {
         this.messages.push(message);
@@ -63,6 +63,10 @@ export class QuickRoomComponent implements OnInit {
       this.messages = messages.messages
     })
 
+    this.chatService.onTyping().subscribe((user: any) => {
+      console.log(`${user} is typing`)
+    })
+
   }
 
   public sendMessage(message: string): void {
@@ -76,11 +80,15 @@ export class QuickRoomComponent implements OnInit {
   }
 
   public shareRoom () {
-    const dialogRef = this.dialog.open(QuickRoomShareComponent, {
+    this.dialog.open(QuickRoomShareComponent, {
       data: {
       url: `localhost:4200/quickRoom/${this.quickRoomDataStorage.quickRoomData.Server.token}`
       }
     })
+  }
+
+  public onTyping() {
+    this.chatService.notifyTyping(this.room, this.latestUser)
   }
 
 

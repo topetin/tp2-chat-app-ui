@@ -10,7 +10,7 @@ import { QuickRoomDataStorage } from '../../services/quickRoomDataStorage';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(data => {
+      if (!data) {
+        return;
+      }
       if (data.action === 'create') {
         return this.quickroomservice.createQuickRoom(data.room, data.user).subscribe(
           response => {
@@ -52,7 +55,6 @@ export class HomeComponent implements OnInit {
             this._snackBar.open(error, 'OK', {duration: 2000})
           })
       }
-
     });
   }
 

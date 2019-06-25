@@ -3,6 +3,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -41,7 +45,11 @@ import { QuickRoomEnterComponent, QuickRoomEnterDialog } from './components/quic
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgbModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [ChatService, QuickRoomDataStorage],
   bootstrap: [AppComponent],
