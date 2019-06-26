@@ -1,26 +1,29 @@
 <div class="chat">
-    <div class="chat-content">
-            <div *ngFor="let message of messages" class="row message-row">
-                    <div>
-                            <p class="date">
-                                    {{message.date}}
-                                </p>
-                    </div>
-                    <div>
-                            <p class="user">{{message.user}}</p>
-                    </div>
-                    <div>
-                            <p class="msg">{{message.content}}</p>
-                    </div>
-                </div>
-    </div>
-    <div class="chat-input">
-        <input #inputMessage maxlength="140" placeholder="Type your message" [(ngModel)]="message"
-            (keyup.enter)="sendMessage(message)" (input)="onTyping()" class="chat-input-input">
-    </div>
-
+	<div class="chat-content">
+		<div *ngFor="let message of messages" class="row message-row">
+			<div><p class="date">{{message.date}}</p></div>
+			<div><p class="user">{{message.user}}</p></div>
+			<div><p class="msg">{{message.content}}</p></div>
+		</div>
+	</div>
+	<span *ngIf="isTyping">{{userTyping}}</span>
+	<div class="chat-input">
+		<input 
+		#inputMessage 
+		maxlength="140" 
+		placeholder="Type your message" 
+		[(ngModel)]="message"
+		(keyup.enter)="sendMessage(message)" 
+		(input)="onTyping()" 
+		class="chat-input-input">
+	</div>
 </div>
-
 <div class="notifications">
-    <button type="button" (click)="shareRoom()">SHARE ROOM</button>
+	<div>
+
+	</div>
+	<div class="share-button">
+		<button mat-raised-button (click)="shareRoom()" class="share-button-button">SHARE ROOM</button>
+	</div>
+
 </div>

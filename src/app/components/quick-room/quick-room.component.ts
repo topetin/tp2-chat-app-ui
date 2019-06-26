@@ -7,6 +7,10 @@ import { QuickRoomShareComponent } from '../quick-room-share/quick-room-share.co
 import { Message } from 'src/app/models/Message';
 import * as moment from 'moment';
 
+const joinMessage = ' has joined the room';
+const leftMessage = ' has left the room';
+const typingMessage = ' is typing...';
+
 @Component({
   selector: 'app-quick-room',
   templateUrl: './quick-room.component.html',
@@ -17,12 +21,14 @@ export class QuickRoomComponent implements OnInit {
   message: string;
   messages: string[] = [];
   users: string[] = [];
-  ioConnection: any;
-  ioJoin: any;
-  ioDisconnect: any;
+  notifications: Array<Object> = [];
 
   latestUser: any; 
-  room: any; 
+  room: any;
+  isTyping: Boolean = false;
+  userTyping: string = '';
+
+  ioOnTyping: any;
 
   constructor(
     private chatService: ChatService,
@@ -44,30 +50,32 @@ export class QuickRoomComponent implements OnInit {
 
     this.chatService.join(this.room, this.latestUser);
     
-    this.ioConnection = this.chatService.onMessage().subscribe((message: any) => {
+    this.chatService.onMessage().subscribe((message: any) => {
         this.messages.push(message);
     });
 
-    this.ioJoin = this.chatService.onJoin().subscribe((data: any) => {
-      console.log(data, ' joined the room')
-      this.users.push(data)
+    this.chatService.onJoin().subscribe((data: any) => {
+      let date = moment().calendar();
+      this.notifications.push({date: date, user: data.user, message: joinMessage});
+      this.users.push(data.user)
     })
 
-    this.ioDisconnect = this.chatService.onDisconnect().subscribe((data: any) => {
-      console.log(data, ' left the room')
+    this.chatService.onDisconnect().subscribe((data: any) => {
+      let date = moment().calendar();
+      this.notifications.push({date: date, user: data, message: leftMessage});
       this.users.splice(this.users.indexOf(data), 1)
     })
 
     this.chatService.onPreviousMessages().subscribe((messages: any) => {
-      console.log(messages.messages)
       this.messages = messages.messages
     })
 
-    this.chatService.onTyping().subscribe((user: any) => {
-      console.log(`${user} is typing`)
-    })
-
-  }
+    this.ioOnTyping = this.chatService.onTyping().subscribe((user: any) => {
+      this.isTyping = true;
+      this.userTyping = user + typingMessage;
+    },
+    () => {},
+    () => this.isTyping = false)}
 
   public sendMessage(message: string): void {
     if (!message) {
