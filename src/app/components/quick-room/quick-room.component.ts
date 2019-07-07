@@ -71,20 +71,24 @@ export class QuickRoomComponent implements OnInit {
     })
 
     this.ioOnTyping = this.chatService.onTyping().subscribe((user: any) => {
-      this.isTyping = true;
-      this.userTyping = user + typingMessage;
-    },
-    () => {},
-    () => this.isTyping = false)}
+      if (user === false) {
+        this.isTyping = false;
+      } else {
+        this.isTyping = true;
+        this.userTyping = user + typingMessage;
+      }
+    })
+  }
 
   public sendMessage(message: string): void {
     if (!message) {
       return;
     }
     let date = moment().calendar(); 
-    let messageObject = new Message(message, this.latestUser, date)
+    let messageObject = new Message(message, this.latestUser, date);
     this.chatService.send(this.room, messageObject);
     this.message = null;
+    this.chatService.notifyTyping(this.room, false);
   }
 
   public shareRoom () {
@@ -96,8 +100,13 @@ export class QuickRoomComponent implements OnInit {
   }
 
   public onTyping() {
-    this.chatService.notifyTyping(this.room, this.latestUser)
+    this.chatService.notifyTyping(this.room, this.latestUser);
   }
 
+  public onNotTyping() {
+    if (this.message === '') {
+      this.chatService.notifyTyping(this.room, false);
+    }
+  }
 
 }

@@ -28,7 +28,7 @@ export class ChatService {
     }
 
     public notifyTyping(room, user) {
-        this.socket.emit('typing', {room, user})
+        this.socket.emit('typing', {room, user});
     }
 
     public onMessage(): Observable<any> {
