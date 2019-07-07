@@ -101,7 +101,8 @@
 
 .notification-title-room {
     font-size: 20px;
-    color: #ff6859;;
+    color: #ff6859;
+    font-weight: bold;
 }
 
 .notification-row {
@@ -120,6 +121,7 @@
     margin: 0;
     font-size: 12px;
     padding-left: 10px;
+    color: #ff6859;
 }
 
 .notification-msg {
@@ -139,5 +141,6 @@
 }
 
 .typing-notification {
-    color: #e6e6e8;
+    color: #5c5c64;
+    font-size: 12px;
 }

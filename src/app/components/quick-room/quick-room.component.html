@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="chat-input">
-		<span *ngIf="isTyping" class="typing-notification">{{userTyping}}</span>
+		<span *ngIf="isTyping" class="typing-notification"><strong>{{userTyping.user}}</strong>{{userTyping.message}}</span>
 		<input maxlength="140" placeholder="Type your message" [(ngModel)]="message"
 			(keyup.enter)="sendMessage(message)" (keyup.backspace)="onNotTyping()" (input)="onTyping()"
 			class="chat-input-input">

@@ -8,7 +8,7 @@ export interface ShareDialogData {
 @Component({
   selector: 'app-quick-room-share',
   templateUrl: './quick-room-share.component.html',
-  styleUrls: ['./quick-room-share.component.css']
+  styleUrls: ['./quick-room-share.component.scss']
 })
 export class QuickRoomShareComponent implements OnInit {
 

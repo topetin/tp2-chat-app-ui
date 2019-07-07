@@ -55,12 +55,6 @@ export class ChatService {
         });
     }
 
-    public onPreviousMessages() {
-        return new Observable<any>(observer => {
-            this.socket.on('previous-messages', (data: any) => observer.next(data));
-        })
-    }
-
     public onTyping() {
         return new Observable<any>(observer => {
             this.socket.on('typing', (data: any) => observer.next(data));

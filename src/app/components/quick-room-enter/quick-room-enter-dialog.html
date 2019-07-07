@@ -1,7 +1,13 @@
-<h1 mat-dialog-title>Join room {{data.room}}</h1>
+<h1 mat-dialog-title>Join room <span style="color: #04b97f;">{{data.room}}</span></h1>
 <div mat-dialog-content>
-  <form #f="ngForm" [formGroup]="form">
-  <input matInput type="text" placeholder="your nickname" formControlName="nickname" required>
-  <button type="button" (click)="joinQuickRoom()">Join</button>
-  </form>
+      <form #f="ngForm" [formGroup]="form">
+          <mat-form-field>
+              <input matInput type="text" placeholder="Nickname" formControlName="nickname" required>
+              <button mat-icon-button matSuffix
+              (click)="joinQuickRoom()" [disabled]="!form.value.nickname">
+            <i class="material-icons" [class.icon-enabled]="form.value.nickname"
+            [class.icon-disabled]="!form.value.nickname">exit_to_app</i></button>
+          </mat-form-field>
+
+        </form>
 </div>

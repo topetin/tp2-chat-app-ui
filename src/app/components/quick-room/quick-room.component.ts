@@ -27,7 +27,7 @@ export class QuickRoomComponent implements OnInit {
   latestUserColor: string;
   room: any;
   isTyping: Boolean = false;
-  userTyping: string = '';
+  userTyping: any;
 
   ioOnTyping: any;
 
@@ -44,7 +44,6 @@ export class QuickRoomComponent implements OnInit {
     console.log(this.quickRoomDataStorage.quickRoomData);
       this.latestUser = this.quickRoomDataStorage.quickRoomData.LatestUser;
       this.latestUserColor = this.getLatestUserColor(this.latestUser);
-      console.log(this.latestUserColor)
       this.room = this.quickRoomDataStorage.quickRoomData.Server.room;
       this.initIoConnection();
   }
@@ -70,16 +69,12 @@ export class QuickRoomComponent implements OnInit {
       this.users.splice(this.users.indexOf(data), 1)
     })
 
-    this.chatService.onPreviousMessages().subscribe((messages: any) => {
-      this.messages = messages.messages
-    })
-
-    this.ioOnTyping = this.chatService.onTyping().subscribe((user: any) => {
+    this.chatService.onTyping().subscribe((user: any) => {
       if (user === false) {
         this.isTyping = false;
       } else {
         this.isTyping = true;
-        this.userTyping = user + typingMessage;
+        this.userTyping = {user: user, message: typingMessage};
       }
     })
   }
@@ -114,8 +109,8 @@ export class QuickRoomComponent implements OnInit {
   }
 
   private getLatestUserColor(user) {
-    const index = this.quickRoomDataStorage.quickRoomData.Server.users.findIndex((u) => u.userName === user)
-    return this.quickRoomDataStorage.quickRoomData.Server.users[index].userColor;
+    const index = this.quickRoomDataStorage.quickRoomData.Server.users.findIndex((u) => u.name === user)
+    return this.quickRoomDataStorage.quickRoomData.Server.users[index].color;
   }
 
 }

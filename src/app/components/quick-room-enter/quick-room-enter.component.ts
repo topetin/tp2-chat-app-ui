@@ -13,7 +13,7 @@ export interface QuickRoomEnterDialogData {
 @Component({
   selector: 'app-quick-room-enter',
   templateUrl: './quick-room-enter.component.html',
-  styleUrls: ['./quick-room-enter.component.css']
+  styleUrls: ['./quick-room-enter.component.scss']
 })
 export class QuickRoomEnterComponent implements OnInit {
 
@@ -65,6 +65,7 @@ export class QuickRoomEnterComponent implements OnInit {
 @Component({
   selector: 'app-quick-room-enter-dialog',
   templateUrl: './quick-room-enter-dialog.html',
+  styleUrls: ['./quick-room-enter-dialog.scss']
 })
 export class QuickRoomEnterDialog implements OnInit{
 
