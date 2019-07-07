@@ -31,9 +31,10 @@
     outline: none;
 }
 
-.date {
+.message-date {
     color: #5c5c64;
     font-size: 12px;
+    margin-bottom: 12px;
 }
 
 .message-row {
@@ -41,13 +42,12 @@
     margin: 0 !important;
 }
 
-.user {
+.message-user {
     margin-left: 15px;
-    color: #04b97f;
     font-size: 15px;
 }
 
-.msg {
+.message-msg {
     color: #ffffff;
     font-size: 15px;
     padding-left: 15px;
@@ -56,6 +56,15 @@
 .chat-content {
     overflow: auto;
     max-height: 90%;
+}
+
+.chat-content::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+}
+
+.chat-content::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.26);
 }
 
 .share-button {
@@ -74,11 +83,18 @@
 
 .notifications {
     padding-top: 20px;
-    background-color: #373740;
+    height: 70%;
+}
+
+.notification-content {
+    padding-left: 20px;
+    padding-top: 10px;
+    overflow: auto;
+    max-height: 100%;
 }
 
 .notification-title {
-    color: #fafafa;
+    color: #e6e6e8;
     text-align: center;
     font-size: 18px;
 }
@@ -91,5 +107,37 @@
 .notification-row {
     align-items: center;
     margin: 0 !important;
+    padding-bottom: 2px;
 }
 
+.notification-date{
+    margin: 0;
+    color: #5c5c64;
+    font-size: 10px;
+}
+
+.notification-user{
+    margin: 0;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.notification-msg {
+    margin: 0;
+    font-size: 12px;
+    padding-left: 10px;
+    color: #e6e6e8;
+}
+
+.notification-content::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+}
+
+.notification-content::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.26);
+}
+
+.typing-notification {
+    color: #e6e6e8;
+}

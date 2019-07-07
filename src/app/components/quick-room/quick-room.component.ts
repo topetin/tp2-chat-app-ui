@@ -24,6 +24,7 @@ export class QuickRoomComponent implements OnInit {
   notifications: Array<Object> = [];
 
   latestUser: any; 
+  latestUserColor: string;
   room: any;
   isTyping: Boolean = false;
   userTyping: string = '';
@@ -40,7 +41,10 @@ export class QuickRoomComponent implements OnInit {
     if(!this.quickRoomDataStorage.quickRoomData) {
       return this.router.navigate(['']);
     } 
+    console.log(this.quickRoomDataStorage.quickRoomData);
       this.latestUser = this.quickRoomDataStorage.quickRoomData.LatestUser;
+      this.latestUserColor = this.getLatestUserColor(this.latestUser);
+      console.log(this.latestUserColor)
       this.room = this.quickRoomDataStorage.quickRoomData.Server.room;
       this.initIoConnection();
   }
@@ -85,7 +89,7 @@ export class QuickRoomComponent implements OnInit {
       return;
     }
     let date = moment().calendar(); 
-    let messageObject = new Message(message, this.latestUser, date);
+    let messageObject = new Message(message, this.latestUser, this.latestUserColor, date);
     this.chatService.send(this.room, messageObject);
     this.message = null;
     this.chatService.notifyTyping(this.room, false);
@@ -107,6 +111,11 @@ export class QuickRoomComponent implements OnInit {
     if (this.message === '') {
       this.chatService.notifyTyping(this.room, false);
     }
+  }
+
+  private getLatestUserColor(user) {
+    const index = this.quickRoomDataStorage.quickRoomData.Server.users.findIndex((u) => u.userName === user)
+    return this.quickRoomDataStorage.quickRoomData.Server.users[index].userColor;
   }
 
 }

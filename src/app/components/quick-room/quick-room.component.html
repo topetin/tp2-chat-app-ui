@@ -2,18 +2,18 @@
 	<div class="chat-content">
 		<div *ngFor="let message of messages" class="row message-row">
 			<div>
-				<p class="date">{{message.date}}</p>
+				<p class="message-date">{{message.date}}</p>
 			</div>
 			<div>
-				<p class="user">{{message.user}}</p>
+				<p class="message-user" [ngStyle]="{'color': message.userColor}">{{message.userName}}</p>
 			</div>
 			<div>
-				<p class="msg">{{message.content}}</p>
+				<p class="message-msg">{{message.content}}</p>
 			</div>
 		</div>
 	</div>
-	<span *ngIf="isTyping">{{userTyping}}</span>
 	<div class="chat-input">
+		<span *ngIf="isTyping" class="typing-notification">{{userTyping}}</span>
 		<input maxlength="140" placeholder="Type your message" [(ngModel)]="message"
 			(keyup.enter)="sendMessage(message)" (keyup.backspace)="onNotTyping()" (input)="onTyping()"
 			class="chat-input-input">
@@ -27,13 +27,13 @@
 		<div class="notification-content">
 			<div *ngFor="let notification of notifications" class="row notification-row">
 				<div>
-					<p class="date">{{notification.date}}</p>
+					<p class="notification-date">{{notification.date}}</p>
 				</div>
 				<div>
-					<p class="user">{{notification.user}}</p>
+					<p class="notification-user">{{notification.user}}</p>
 				</div>
 				<div>
-					<p class="msg">{{notification.message}}</p>
+					<p class="notification-msg">{{notification.message}}</p>
 				</div>
 			</div>
 		</div>

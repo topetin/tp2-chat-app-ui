@@ -1,12 +1,14 @@
 export class Message {
 
     private content: string;
-    private user: string;
+    private userName: string;
+    private userColor: string;
     private date: string;
 
-    constructor(content, user, date) {
+    constructor(content, userName, userColor, date) {
         this.content = content;
-        this.user = user;
+        this.userName = userName;
+        this.userColor = userColor;
         this.date = date;
     }
 
@@ -15,7 +17,11 @@ export class Message {
     }
 
     public getUser() {
-        return this.user;
+        return this.userName;
+    }
+
+    public getUserColor() {
+        return this.userColor;
     }
 
     public getDate() {
